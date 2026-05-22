@@ -1,13 +1,19 @@
 #include <iostream>
 using namespace std;
 
+int allocate(int slot,int &head ,const int add[]) {
+    if (head == -1) {
+        return -1;
+    }
+    head = add[head];
+    return 0;
+}
+
+
 int main() {
     std::byte* arena = new std::byte[32];
     int* add = reinterpret_cast<int*>(arena);
-    cout << "arena :" << arena << endl;
-    cout << "add : " << add  << endl;
-    cout << "add+1 "<<add + 1 << endl;
-    int* head = add ;
+    int head = 0 ;
     std::cout <<"Head is " << head << endl;
     for (int i=0; i < 32/4; i++) {
         //pointing arena[i] to the next slot in the list
@@ -22,8 +28,10 @@ int main() {
             add[i] = i+1;
         }
 
-        cout << "value of add " << i << ": " << add[i] << endl;
+        cout << "Points to " << i << ": " << add[i] << endl;
     }
+    allocate(0,head, add);
+    cout << "Head is " << head << endl;
     delete[] arena;
     return 0;
 }
