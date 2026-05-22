@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int allocate(int slot,int &head ,const int add[]) {
+int allocate(int &head ,const int add[]) {
     if (head == -1) {
         return -1;
     }
@@ -30,7 +30,8 @@ int main() {
 
         cout << "Points to " << i << ": " << add[i] << endl;
     }
-    allocate(0,head, add);
+    allocate(head, add);
+    allocate(head, add);
     cout << "Head is " << head << endl;
     delete[] arena;
     return 0;
