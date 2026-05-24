@@ -12,7 +12,7 @@ int allocate(int &head ,const int add[]) {
 }
 
 int de_allocate(int add[], const int &free,int &head) {
-    add[free] = add[head];
+    add[free] = head;
     head = free;
     return 0;
 }
@@ -52,12 +52,7 @@ int main() {
             cout << endl;
             add[i] = i+1;
         }
-    }
-    freelist(add,head);
-    allocate(head, add);
-    freelist(add,head);
-    de_allocate(add,0,head);
-    freelist(add,head);
+
     cout << "Head is " << head << endl;
     delete[] arena;
     return 0;
