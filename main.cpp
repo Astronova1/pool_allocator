@@ -9,6 +9,23 @@ int allocate(int &head ,const int add[]) {
     return 0;
 }
 
+int freelist(int add[], const int head) {
+    if (head == -1) {
+        return -1;
+    }
+    cout << endl;
+    cout << "======FREE_LIST======" << endl;
+    for (int i=head; i<= 32/4; i++ ) {
+        if (i>7) {
+            return -1;
+        }
+        cout << i <<  " Points to " << ": " << add[i] << endl;
+    }
+    cout << endl << endl;
+    return 0;
+}
+
+
 
 int main() {
     std::byte* arena = new std::byte[32];
@@ -27,11 +44,10 @@ int main() {
             cout << endl;
             add[i] = i+1;
         }
-
-        cout << "Points to " << i << ": " << add[i] << endl;
     }
+    freelist(add,head);
     allocate(head, add);
-    allocate(head, add);
+    freelist(add,head);
     cout << "Head is " << head << endl;
     delete[] arena;
     return 0;
