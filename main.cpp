@@ -52,7 +52,7 @@ int main() {
             cout << endl;
             add[i] = i+1;
         }
-
+    }// 0 points to 3
     cout << "Head is " << head << endl;
     delete[] arena;
     return 0;
