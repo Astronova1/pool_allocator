@@ -8,10 +8,14 @@ int allocate(int &head ,const int add[]) {    //allocates the slots if slots are
     const int allo = head;
     head = add[head];           //allocate the value of the current head as the new head
     cout << endl << allo << " allocated" << endl;
-    return 0;
+    return allo;
 }
 
 int de_allocate(int add[], const int &free,int &head) {         //frees the slot currently allocated
+    if (free > 7) {
+        cout << "Slot to be freed should be less than 8";
+        return -1;
+    }
     add[free] = head;               //set block freed value to point it to the old head
     head = free;                   //set the current head to the freed slot
     cout << endl << free << " de-allocated" << endl;
