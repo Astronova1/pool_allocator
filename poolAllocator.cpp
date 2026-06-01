@@ -5,13 +5,16 @@
 #include <cstddef>
 #include "poolAllocator.h"
 
-poolAllocator::poolAllocator(int head, int slot_size)
-    : m_head {-1}
+poolAllocator::poolAllocator(int head, const int slot_size,std::byte* arena)
+    : m_head {0}
     , m_slot_size {slot_size}
 {
-    auto* arena = new std::byte[(slot_size*sizeof(int))];   //change to pointer to the byte
+    arena = new std::byte[slot_size*sizeof(int)];   //change to pointer to the byte
     int* add = reinterpret_cast<int*>(arena);
 }
 
 
-
+poolAllocator::~poolAllocator() {
+    delete[] m_arena;
+    std::cout << "Memory released\n";
+}

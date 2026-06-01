@@ -11,9 +11,10 @@ class poolAllocator {
     private:
     int m_head;
     int m_slot_size;
+    std::byte* m_arena{nullptr};
     public:
-    poolAllocator(int head, int slot_size);
-
+    poolAllocator(int head, int slot_size, std::byte* arena);
+    ~poolAllocator();
 };
 
 
