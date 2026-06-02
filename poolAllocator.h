@@ -12,8 +12,9 @@ class poolAllocator {
     int m_head;
     int m_slot_size;
     std::byte* m_arena{nullptr};
+    int* m_add;
     public:
-    poolAllocator(int head, int slot_size, std::byte* arena);
+    explicit poolAllocator( int m_slot_size);
     ~poolAllocator();
 };
 

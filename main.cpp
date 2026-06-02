@@ -1,4 +1,5 @@
 #include <iostream>
+#include "poolAllocator.h"
 using namespace std;
 
 int allocate(int &head ,const int add[]) {    //allocates the slots if slots are free
@@ -75,5 +76,6 @@ int main() {
     freelist(add,head);
     cout << "\nHead is " << head << endl;
     delete[] arena;
+    poolAllocator p(8);
     return 0;
 }
