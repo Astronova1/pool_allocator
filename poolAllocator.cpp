@@ -5,12 +5,13 @@
 #include <cstddef>
 #include "poolAllocator.h"
 
-poolAllocator::poolAllocator(int head, const int slot_size,std::byte* arena)
+poolAllocator::poolAllocator( const int m_slot_size)
     : m_head {0}
-    , m_slot_size {slot_size}
+    , m_slot_size {m_slot_size}
 {
-    arena = new std::byte[slot_size*sizeof(int)];   //change to pointer to the byte
-    int* add = reinterpret_cast<int*>(arena);
+    m_arena = new std::byte[m_slot_size*sizeof(int)];   //change to pointer to the byte
+    m_add = reinterpret_cast<int*>(m_arena);
+    std::cout << "Head is " << m_head << std::endl;
 }
 
 
