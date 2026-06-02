@@ -1,6 +1,4 @@
-//
-// Created by Dark on 30/05/2026.
-//
+
 
 #ifndef POOL_ALLOCATOR_POOLALLOCATOR_H
 #define POOL_ALLOCATOR_POOLALLOCATOR_H
@@ -14,7 +12,10 @@ class poolAllocator {
     std::byte* m_arena{nullptr};
     int* m_add;
     public:
-    explicit poolAllocator( int m_slot_size);
+    explicit poolAllocator( int slot_size);
+    int de_allocate(const int &free);
+    int allocate();
+    int printlist() const;
     ~poolAllocator();
 };
 
