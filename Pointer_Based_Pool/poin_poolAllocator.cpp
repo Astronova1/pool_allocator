@@ -5,6 +5,7 @@
 #include "poin_poolAllocator.h"
 #include <iostream>
 #include <cstddef>
+#include <optional>
 
 poin_poolAllocator::poin_poolAllocator( const int slot_size)
     : m_head {nullptr}
@@ -15,7 +16,7 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size)
         std::byte* current = m_arena + slot_size * i;     //current pointer of 8 bytes
         std::byte* p_next = m_arena + slot_size * (i+2);  //next pointer of 8 bytes
         std::byte** next;                                // pointer to a pointer
-        next = reinterpret_cast<std::byte**>(current);  // imagine current(i.e next)  as pointer to pointer
+        next = reinterpret_cast<std::byte**>(current);  // imagine current(i.e byte next)  as pointer to pointer
         if (i < m_slot_size-1) {
             *next = nullptr;                           //assign null pointer to the last
         }else {
@@ -31,18 +32,19 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size)
     std::cout << "Head is " << m_head << std::endl;
 }
 
-// int poin_poolAllocator::allocate() {             //allocate the free memory space
-//     if (m_head == -1) {         //return -1 if memory arena is empty
-//         std::cout << "Head is -1" << std::endl;
-//         return -1;
-//     }
-//     const int allo = m_head;
-//     m_head = m_add[m_head];           //allocate the value of the current head as the new head
-//     std::cout << std::endl << allo << " allocated" << std::endl;
-//     std::cout << "New head is : " << m_head << std::endl;
-//     return allo;
-// }
-//
+ std::optional<std::byte*> poin_poolAllocator::allocate() {             //allocate the free memory space
+     if (m_head == nullptr) {         //return -1 if memory arena is empty
+         std::cout << "All memory spaces filled" << std::endl;
+         return std::nullopt;
+     }
+    std::byte* allo = m_head;
+    m_head = m_arena + m_slot_size;
+                //allocate the address inside the current head as the new head
+     std::cout << std::endl << allo << " allocated" << std::endl;
+     std::cout << "New head is : " << m_head << std::endl;
+     return allo;
+ }
+
 // int poin_poolAllocator::de_allocate(const int &free) {         //frees the slot currently allocated
 //     if (free > m_slot_size) {
 //         std::cout << "Slot to be freed should be less than " << m_slot_size;
