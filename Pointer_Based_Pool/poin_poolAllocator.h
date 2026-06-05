@@ -5,7 +5,7 @@
 #ifndef POOL_ALLOCATOR_POIN_POOLALLOCATOR_H
 #define POOL_ALLOCATOR_POIN_POOLALLOCATOR_H
 #include <cstddef>
-
+#include <optional>
 
 class poin_poolAllocator {
 private:
@@ -15,7 +15,7 @@ private:
 public:
     explicit poin_poolAllocator( int slot_size);
     // int de_allocate(const int &free);
-    // int allocate();
+    std::optional<std::byte*> allocate();
     // int printlist() const;
     // ~poin_poolAllocator();
 };
