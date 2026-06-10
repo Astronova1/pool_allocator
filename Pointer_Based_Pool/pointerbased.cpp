@@ -7,9 +7,14 @@ using namespace std;
 
 int main() {
     poin_poolAllocator p(8);
-    // p.allocate();
-    // p.printlist();
-    // p.de_allocate(0);
-     p.printlist();
+    std::optional<std::byte*> alloc_result = p.allocate();
+    std::byte* ptr = nullptr;
+    if (alloc_result.has_value()) {
+        ptr = alloc_result.value();
+    }
+    p.allocate();
+    p.printlist();
+    p.de_allocate(ptr);
+    p.printlist();
     return 0;
 }

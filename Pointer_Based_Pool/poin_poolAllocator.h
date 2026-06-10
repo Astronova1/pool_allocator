@@ -15,9 +15,9 @@ private:
 public:
     explicit poin_poolAllocator( int slot_size);
     std::optional<std::byte*> de_allocate(std::byte* ptr);
-    std::optional<std::byte**> allocate();
+    std::optional<std::byte*> allocate();
     void printlist() const;
-    // ~poin_poolAllocator();
+    ~poin_poolAllocator();
 };
 
 
