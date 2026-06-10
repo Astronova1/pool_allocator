@@ -33,15 +33,16 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size,const int noOfSlots)
          std::cout << "All memory spaces filled" << std::endl;
          return std::nullopt;
      }
+    std::byte* r_alloc = m_head;
     std::byte** allo = reinterpret_cast<std::byte**>(m_head);
     m_head = *allo;
                 //allocate the address inside the current head as the new head
      std::cout << std::endl << allo << " allocated" << std::endl;
      std::cout << "New head is : " << m_head << std::endl;
-     return reinterpret_cast<std::byte* >(allo);
+     return r_alloc;
  }
 
- std::optional<std::byte*> poin_poolAllocator::de_allocate(std::byte* ptr) {         //frees the slot currently allocated
+ void poin_poolAllocator::de_allocate(std::byte* ptr) {         //frees the slot currently allocated
  //   if (free > m_slot_size) {
  //       std::cout << "Slot to be freed should be less than " << m_slot_size;
  //       return std::nullopt;
@@ -50,7 +51,6 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size,const int noOfSlots)
     *storage = m_head;               //store the address of m_head in ptr(storage)
     m_head = ptr;                   //set the current head to the freed slot
     std::cout << std::endl << ptr << " de-allocated" << std::endl;
-    return m_head;
 }
 
 void poin_poolAllocator::printlist() const {         //travers the free list if it is not allocated

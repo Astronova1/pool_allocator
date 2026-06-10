@@ -15,7 +15,7 @@ private:
     std::byte* m_arena{nullptr};
 public:
     explicit poin_poolAllocator( int slot_size,int noOfSlots);
-    std::optional<std::byte*> de_allocate(std::byte* ptr);
+    void de_allocate(std::byte* ptr);
     std::optional<std::byte*> allocate();
     void printlist() const;
     ~poin_poolAllocator();
