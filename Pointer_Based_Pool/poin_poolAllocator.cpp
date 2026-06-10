@@ -27,7 +27,7 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size)
     m_head = m_arena ;
 }
 
- std::optional<std::byte**> poin_poolAllocator::allocate() {             //allocate the free memory space
+ std::optional<std::byte*> poin_poolAllocator::allocate() {             //allocate the free memory space
      if (m_head == nullptr) {         //return -1 if memory arena is empty
          std::cout << "All memory spaces filled" << std::endl;
          return std::nullopt;
@@ -37,7 +37,7 @@ poin_poolAllocator::poin_poolAllocator( const int slot_size)
                 //allocate the address inside the current head as the new head
      std::cout << std::endl << allo << " allocated" << std::endl;
      std::cout << "New head is : " << m_head << std::endl;
-     return allo;
+     return reinterpret_cast<std::byte* >(allo);
  }
 
  std::optional<std::byte*> poin_poolAllocator::de_allocate(std::byte* ptr) {         //frees the slot currently allocated
@@ -68,10 +68,11 @@ void poin_poolAllocator::printlist() const {         //travers the free list if 
             std::cout << "Points To: " << curr << std::endl;
         }
         std::cout << std::endl << std::endl;
+        std::cout << "Head is: " << m_head << std::endl;
     }
 }
 
-// poin_poolAllocator::~poin_poolAllocator() {
-//     delete[] m_arena;
-//     std::cout << "Memory released\n";
-// }
+ poin_poolAllocator::~poin_poolAllocator() {
+     delete[] m_arena;
+     std::cout << "Memory released\n";
+ }
