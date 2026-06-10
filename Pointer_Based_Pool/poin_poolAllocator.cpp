@@ -7,18 +7,19 @@
 #include <cstddef>
 #include <optional>
 
-poin_poolAllocator::poin_poolAllocator( const int slot_size)
+poin_poolAllocator::poin_poolAllocator( const int slot_size,const int noOfSlots)
     : m_head {nullptr}
     , m_slot_size {slot_size}
+    ,m_noOfSlots {noOfSlots}
 {
-    m_arena = new std::byte[m_slot_size* 8];
+    m_arena = new std::byte[m_noOfSlots* m_noOfSlots];
     int j=0;
-    for (int i=0; i<slot_size; i++) {
-        std::byte* current = m_arena + slot_size * i;     //current pointer of 8 bytes
-        std::byte* p_next = m_arena + slot_size * (i+1);  //next pointer of 8 bytes
+    for (int i=0; i<m_noOfSlots; i++) {
+        std::byte* current = m_arena + m_slot_size * i;     //current pointer of 8 bytes
+        std::byte* p_next = m_arena + m_slot_size * (i+1);  //next pointer of 8 bytes
         std::byte** next;                                // pointer to a pointer
         next = reinterpret_cast<std::byte**>(current);  // imagine current(i.e byte next)  as pointer to pointer
-        if (i == m_slot_size-1) {
+        if (i == m_noOfSlots-1) {
             *next = nullptr;                           //assign null pointer to the last
         }else {
             *next = p_next;                             // assign next pointer (p_next) to current pointer

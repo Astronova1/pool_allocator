@@ -10,10 +10,11 @@
 class poin_poolAllocator {
 private:
     std::byte* m_head;
-    int m_slot_size;
+    int m_slot_size=0;
+    int m_noOfSlots=0;
     std::byte* m_arena{nullptr};
 public:
-    explicit poin_poolAllocator( int slot_size);
+    explicit poin_poolAllocator( int slot_size,int noOfSlots);
     std::optional<std::byte*> de_allocate(std::byte* ptr);
     std::optional<std::byte*> allocate();
     void printlist() const;
