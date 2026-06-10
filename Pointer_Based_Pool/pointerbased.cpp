@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
     poin_poolAllocator p(8);
-    p.allocate();
+    // p.allocate();
     // p.printlist();
     // p.de_allocate(0);
      p.printlist();
